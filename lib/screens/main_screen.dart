@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/router/destinations.dart';
 import 'package:movie_app/search/search_delegate.dart';
 
 import 'package:provider/provider.dart';
@@ -14,6 +15,9 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigationProvider = Provider.of<NavigationProvider>(context);
 
+    final size = MediaQuery.sizeOf(context);
+    bool wideScreen = size.width > 600;
+
     final Map<String, Widget> _screens = {
       AppNavigator.ROUTE_HOME: const HomeScreen(),
       AppNavigator.ROUTE_TV: TvScreen(),
@@ -21,29 +25,70 @@ class MainScreen extends StatelessWidget {
     };
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Conecta TV'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed:
-                () => showSearch(
-                  context: context,
-                  delegate: MovieSearchDelegate(),
-                ),
+      appBar:
+          wideScreen
+              ? null
+              : AppBar(
+                title: const Text('Conecta TV'),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed:
+                        () => showSearch(
+                          context: context,
+                          delegate: MovieSearchDelegate(),
+                        ),
+                  ),
+                ],
+              ),
+      body: Row(
+        children: [
+          // Add NavigationRail for wide screens
+          if (wideScreen)
+            NavigationRail(
+              leading: IconButton(
+                icon: Icon(Icons.search),
+                onPressed:
+                    () => showSearch(
+                      context: context,
+                      delegate: MovieSearchDelegate(),
+                    ),
+              ),
+              selectedIndex: _getIndex(navigationProvider.currentRoute),
+              minWidth: size.width * 0.01,
+              useIndicator: true,
+              groupAlignment: -1.0,
+              onDestinationSelected: (index) => _updateRoute(context, index),
+              labelType: NavigationRailLabelType.selected,
+              destinations:
+                  destinations.map((d) {
+                    return NavigationRailDestination(
+                      icon: Icon(d.icon),
+                      label: Text(d.label),
+                    );
+                  }).toList(),
+            ),
+          // Main content
+          Expanded(
+            child:
+                _screens[navigationProvider.currentRoute] ?? const HomeScreen(),
           ),
         ],
       ),
-      body: _screens[navigationProvider.currentRoute] ?? const HomeScreen(),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _getIndex(navigationProvider.currentRoute),
-        onDestinationSelected: (index) => _updateRoute(context, index),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.tv), label: 'TV'),
-          NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+      bottomNavigationBar:
+          wideScreen
+              ? null
+              : NavigationBar(
+                selectedIndex: _getIndex(navigationProvider.currentRoute),
+                onDestinationSelected: (index) => _updateRoute(context, index),
+                destinations:
+                    destinations.map((d) {
+                      return NavigationDestination(
+                        icon: Icon(d.icon),
+                        label: d.label,
+                      );
+                    }).toList(),
+              ),
     );
   }
 
