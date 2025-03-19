@@ -47,6 +47,8 @@ class Tv implements MediaItem {
   double voteAverage;
   int voteCount;
 
+  String? heroId;
+
   @override
   get fullPosterImg {
     return 'https://image.tmdb.org/t/p/w500$posterPath';

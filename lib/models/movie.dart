@@ -21,6 +21,8 @@ class Movie implements MediaItem {
   double voteAverage;
   int voteCount;
 
+  String? heroId;
+
   @override
   get fullPosterImg {
     if (posterPath != null) return 'https://image.tmdb.org/t/p/w500$posterPath';

@@ -84,6 +84,7 @@ class _MediaPoster extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mediaItem.heroId = 'slider-${mediaItem.id}';
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 14),
 
@@ -91,14 +92,17 @@ class _MediaPoster extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => AppNavigator.navigateToDetails(context, mediaItem),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                width: 130,
-                height: 190,
-                placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(mediaItem.fullPosterImg),
-                fit: BoxFit.cover,
+            child: Hero(
+              tag: mediaItem.heroId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  width: 130,
+                  height: 190,
+                  placeholder: AssetImage('assets/no-image.jpg'),
+                  image: NetworkImage(mediaItem.fullPosterImg),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

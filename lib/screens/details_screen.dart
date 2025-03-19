@@ -77,7 +77,7 @@ class _PosterAndTitle extends StatelessWidget {
           Row(
             children: [
               Hero(
-                tag: mediaItem.id,
+                tag: mediaItem.heroId!,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: FadeInImage(
