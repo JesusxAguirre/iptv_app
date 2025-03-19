@@ -34,28 +34,31 @@ class MoviesProvider extends ChangeNotifier {
     int page = 1,
     String query = '',
   ]) async {
-    var url = Uri.https(_baseUrl, path, {
-      'language': _language,
-      'page': '$page',
-      'query': query,
-    });
+    try {
+      var url = Uri.https(_baseUrl, path, {
+        'language': _language,
+        'page': '$page',
+        'query': query,
+      });
 
-    var response = await http.get(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $_token',
-      },
-    );
+      var response = await http.get(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $_token',
+        },
+      );
 
-    return response.body;
+      return response.body;
+    } catch (error) {
+      return '';
+    }
   }
 
   getPopularMoviews() async {
     _popularPage++;
 
-    print('this is popular page $_popularPage');
     String path = '/3/movie/popular';
 
     final PopularMoviesResponse popularMovies = PopularMoviesResponse.fromJson(

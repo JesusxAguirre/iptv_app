@@ -29,7 +29,7 @@ class MainScreen extends StatelessWidget {
           wideScreen
               ? null
               : AppBar(
-                title: const Text('Conecta TV'),
+                title: const Text('IPTV APP'),
                 actions: [
                   IconButton(
                     icon: Icon(Icons.search),
