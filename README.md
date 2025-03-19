@@ -38,11 +38,16 @@ The project is built with **Flutter**, leveraging its flexibility and performanc
 - **API Integration**: Integrated with external APIs to fetch and display data dynamically.
 - **Responsive Design**: Ensured the app works seamlessly across different screen sizes and devices.
 
----
 
+
+
+---
 
 ## 📸 **Screenshots**
 
-*(Add screenshots of your app here to showcase the UI/UX.)*
+| Home Screen         | Tv Screen          | Search Screen             | Details Screen | 
+| :-------------------- | :---------------------- | :---------------------- | :------------------------- | 
+|<img src="https://github.com/user-attachments/assets/95f2f6fd-8ac2-4565-921c-0218bbe75331" width="185"/>| 
+| |  | 
 
 ---
